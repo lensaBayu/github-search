@@ -1,0 +1,258 @@
+.container {
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 20px;
+    /* Adjust spacing between logo and text */
+}
+
+.logo {
+    width: 60px;
+    /* Adjust size as needed */
+    height: auto;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-text h1 {
+    font-size: 2rem;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Make the font bold */
+    color: #333;
+    /* Change text color */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.header-text h3 {
+    font-size: 1.5rem;
+    /* Adjust font size */
+    font-weight: normal;
+    /* Normal weight */
+    color: #666;
+    /* Change text color */
+    margin: 0;
+    /* Remove default margin */
+}
+
+@media (max-width: 768px) {
+    .header-text h1 {
+        font-size: 1.5rem;
+        /* Smaller font size for tablets and smaller screens */
+    }
+
+    .header-text h3 {
+        font-size: 1.2rem;
+        /* Smaller font size for tablets and smaller screens */
+    }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+    .header-text h1 {
+        font-size: 1.2rem;
+        /* Even smaller font size for mobile devices */
+    }
+
+    .header-text h3 {
+        font-size: 1rem;
+        /* Even smaller font size for mobile devices */
+    }
+}
+
+
+/* Search.css */
+
+.search-container {
+    display: flex;
+    /* Align children horizontally */
+    gap: 10px;
+    /* Space between input and select */
+    /* Padding around the container */
+    flex-wrap: nowrap;
+    /* Ensure items don't wrap */
+    width: 100%;
+    /* Full width of its container */
+    max-width: 600px;
+    /* Maximum width to ensure it doesn't stretch too much */
+    /* margin: 0 auto; */
+    /* Center the container horizontally */
+}
+
+/* Style for input */
+.search-container input {
+    flex: 2;
+    /* Make input twice as wide as select */
+    min-width: 200px;
+    /* Minimum width to ensure it’s not too small */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    /* Include padding and border in width */
+}
+
+/* Style for select */
+.search-container select {
+    flex: 1;
+    /* Make select half as wide as input */
+    min-width: 100px;
+    /* Minimum width to ensure it’s not too small */
+    max-width: 150px;
+    /* Maximum width to make it shorter on larger screens */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    /* Include padding and border in width */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: row;
+        /* Ensure side-by-side layout */
+    }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+
+    .search-container input,
+    .search-container select {
+        font-size: 0.7rem;
+        /* Adjust font size */
+        padding: 8px;
+        /* Adjust padding */
+    }
+}
+
+/* Container for pagination */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    gap: 15px;
+    /* Space between elements */
+    justify-content: center;
+    /* Center horizontally */
+    /* Space between elements */
+}
+
+/* Styling for Previous and Next buttons */
+.pagination-button {
+    background: none;
+    border: none;
+    color: #000;
+    /* Default text color */
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+/* Disabled state for Previous and Next buttons */
+.pagination-button:disabled {
+    color: #ccc;
+    /* Text color when disabled */
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+/* Styling for page numbers */
+.pagination-number {
+    background: none;
+    border: none;
+    color: #ccc;
+    /* Default text color */
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+/* Bold or colored page number for current page */
+.pagination-number.current-page {
+    font-weight: bold;
+    color: #000;
+    /* Color for the current page */
+}
+
+/* Ellipsis styling */
+.pagination-ellipsis {
+    color: #ccc;
+    /* Text color for ellipsis */
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns on small screens */
+    gap: 15px;
+    /* Space between cards */
+    padding: 30px 0;
+    /* Top and bottom padding */
+    justify-content: center;
+    /* Center grid items horizontally */
+}
+
+/* Ensure card width adapts to container and text wraps */
+.card {
+    background-color: #f0f0f0;
+    /* Light grey background */
+    border: 1px solid #ddd;
+    /* Light border */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 15px;
+    /* Padding inside the card */
+    box-sizing: border-box;
+    /* Include padding and border in width */
+    text-align: center;
+    /* Center text inside the card */
+    font-size: 1rem;
+    /* Text size */
+    color: #333;
+    /* Text color */
+    min-height: 150px;
+    /* Ensure a minimum height */
+    overflow-wrap: break-word;
+    /* Break long words to prevent overflow */
+    word-wrap: break-word;
+    /* Fallback for older browsers */
+    width: 100%;
+    /* Ensure card width adapts to container */
+    max-width: 100%;
+    /* Prevent card from being wider than its container */
+    max-width: 100%;
+    /* Ensures card does not exceed the container width */
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 columns on larger screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%;
+        font-size: x-small;
+        /* Ensure card takes full width on small screens */
+    }
+}

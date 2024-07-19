@@ -1,18 +1,18 @@
 import React from 'react';
 
-const Search = ({ data, category, handleInputChange, handleCategoryChange, handleSubmit }) => {
+const Search = ({ data, category, handleInputChange, handleCategoryChange }) => {
     return (
-        <div>
-            <select value={category} onChange={handleCategoryChange}>
-                <option value="user">User</option>
-                <option value="repositories">Repositories</option>
-            </select>
+        <div className='search-container'>
             <input
                 type="text"
                 value={data}
                 onChange={handleInputChange}
-                placeholder='Type to search users or repositories'
+                placeholder='Type to search users or repositories...'
             />
+            <select value={category} onChange={handleCategoryChange}>
+                <option value="user">Users</option>
+                <option value="repositories">Repositories</option>
+            </select>
         </div>
     );
 }

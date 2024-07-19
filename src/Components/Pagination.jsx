@@ -4,36 +4,37 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const maxPagesToShow = 3;
     const pageNumbers = [];
 
-    // Determine the range of pages to display
     let startPage = Math.max(currentPage - Math.floor(maxPagesToShow / 2), 1);
     let endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
-
-    // Adjust startPage if not enough pages to show
     if (endPage - startPage + 1 < maxPagesToShow) {
         startPage = Math.max(endPage - maxPagesToShow + 1, 1);
     }
-
-    // Generate page numbers to display
     for (let i = startPage; i <= endPage; i++) {
         pageNumbers.push(i);
     }
 
     return (
-        <div>
-            <button onClick={() => onPageChange('prev')} disabled={currentPage === 1}>Previous</button>
+        <div className='pagination-container'>
+            <button
+                className='pagination-button'
+                onClick={() => onPageChange('prev')}
+                disabled={currentPage === 1}
+            >
+                Previous
+            </button>
 
             {currentPage > 1 && pageNumbers[0] > 1 && (
                 <>
-                    <button onClick={() => onPageChange(1)}>1</button>
-                    {pageNumbers[0] > 2 && <span>...</span>}
+                    <button className='pagination-number' onClick={() => onPageChange(1)}>1</button>
+                    {pageNumbers[0] > 2 && <span className='pagination-ellipsis'>...</span>}
                 </>
             )}
 
             {pageNumbers.map(pageNumber => (
                 <button
                     key={pageNumber}
+                    className={`pagination-number ${pageNumber === currentPage ? 'current-page' : ''}`}
                     onClick={() => onPageChange(pageNumber)}
-                    disabled={pageNumber === currentPage}
                 >
                     {pageNumber}
                 </button>
@@ -41,12 +42,18 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
             {currentPage < totalPages && pageNumbers[pageNumbers.length - 1] < totalPages && (
                 <>
-                    {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && <span>...</span>}
-                    <button onClick={() => onPageChange(totalPages)}>{totalPages}</button>
+                    {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && <span className='pagination-ellipsis'>...</span>}
+                    <button className='pagination-number' onClick={() => onPageChange(totalPages)}>{totalPages}</button>
                 </>
             )}
 
-            <button onClick={() => onPageChange('next')} disabled={currentPage === totalPages}>Next</button>
+            <button
+                className='pagination-button'
+                onClick={() => onPageChange('next')}
+                disabled={currentPage === totalPages}
+            >
+                Next
+            </button>
         </div>
     );
 };

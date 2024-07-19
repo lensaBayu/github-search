@@ -21,7 +21,7 @@ const LandingPage = () => {
         }
 
         const baseURL = 'https://api.github.com/search';
-        const perPage = 25;
+        const perPage = 20;
         let url = '';
 
         if (category === 'user') {
@@ -98,10 +98,15 @@ const LandingPage = () => {
     }, [category]);
 
     return (
-        <div>
-            <img src="" alt="" />
-            <h1>GitHub Searcher</h1>
-            <h3>Search users or repositories below</h3>
+        <div className='container'>
+            <div className='header'>
+                <img src="./Logo.png" alt="logoGitHub" className='logo' />
+                <div className='header-text'>
+                    <h1>GitHub Searcher</h1>
+                    <h3>Search users or repositories below</h3>
+                </div>
+            </div>
+
             <Search
                 data={data}
                 category={category}
@@ -114,11 +119,11 @@ const LandingPage = () => {
             ) : (
                 <div>
                     {results.length > 0 ? (
-                        <ul>
+                        <div className='card-container'>
                             {results.map((result, index) => (
                                 <Card key={index} result={result} category={category} />
                             ))}
-                        </ul>
+                        </div>
                     ) : (
                         <p>No results found</p>
                     )}
