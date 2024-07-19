@@ -1,0 +1,59 @@
+.page-container {
+    padding: 1.25rem;
+}
+
+.header-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.wadah-logo {
+    display: grid;
+    place-items: center;
+}
+
+.logo {
+    height: 40px;
+}
+
+.main-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+}
+
+.sub-title {
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.loading {
+    padding: 1.25rem;
+    font-weight: bold;
+}
+
+.no-results {
+    padding: 0.5rem;
+    font-weight: bold;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    /* gap-5 */
+    margin-bottom: 2.5rem;
+    /* mb-10 */
+}
+
+@media (min-width: 1024px) {
+    .results-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.pagination-container {
+    /* display: grid; */
+    place-content: center;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}

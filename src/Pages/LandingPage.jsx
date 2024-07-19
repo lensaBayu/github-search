@@ -3,7 +3,8 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import Search from '../Components/Search';
 import Card from '../Components/Card';
-import Pagination from '../Components/Pagination'; // Import Pagination component
+import Pagination from '../Components/Pagination';
+import '../Styling/Landing.css';
 
 const LandingPage = () => {
     const [data, setData] = useState('');
@@ -98,12 +99,14 @@ const LandingPage = () => {
     }, [category]);
 
     return (
-        <div className='container'>
-            <div className='header'>
-                <img src="./Logo.png" alt="logoGitHub" className='logo' />
-                <div className='header-text'>
-                    <h1>GitHub Searcher</h1>
-                    <h3>Search users or repositories below</h3>
+        <div className="page-container">
+            <div className="header-container">
+                <div className='wadah-logo'>
+                    <img src="./Logo.png" alt="logoGitHub" className="logo" />
+                </div>
+                <div className="header-content">
+                    <div className="main-title">GitHub Searcher</div>
+                    <div className="sub-title">Search users or repositories below</div>
                 </div>
             </div>
 
@@ -115,26 +118,28 @@ const LandingPage = () => {
                 handleSubmit={handleSubmit}
             />
             {isLoading ? (
-                <p>Loading...</p>
+                <div className="loading">Loading...</div>
             ) : (
                 <div>
                     {results.length > 0 ? (
-                        <div className='card-container'>
+                        <div className={`results-grid ${results.length > 3 ? 'results-grid-lg' : ''}`}>
                             {results.map((result, index) => (
                                 <Card key={index} result={result} category={category} />
                             ))}
                         </div>
                     ) : (
-                        <p>No results found</p>
+                        <div className="no-results">No results found</div>
                     )}
                 </div>
             )}
             {totalPages > 1 && (
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                />
+                <div className="pagination-container">
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
+                </div>
             )}
         </div>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Styling/Pagination.css'
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const maxPagesToShow = 3;
@@ -14,46 +15,46 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     }
 
     return (
-        <div className='pagination-container'>
-            <button
-                className='pagination-button'
+        <div className="pagination-container">
+            <div
+                className={`pagination-button ${currentPage === 1 ? 'disabled' : ''}`}
                 onClick={() => onPageChange('prev')}
                 disabled={currentPage === 1}
             >
                 Previous
-            </button>
+            </div>
 
             {currentPage > 1 && pageNumbers[0] > 1 && (
                 <>
-                    <button className='pagination-number' onClick={() => onPageChange(1)}>1</button>
-                    {pageNumbers[0] > 2 && <span className='pagination-ellipsis'>...</span>}
+                    <div className="pagination-button" onClick={() => onPageChange(1)}>1</div>
+                    {pageNumbers[0] > 2 && <span className="pagination-dots">...</span>}
                 </>
             )}
 
             {pageNumbers.map(pageNumber => (
-                <button
+                <div
                     key={pageNumber}
-                    className={`pagination-number ${pageNumber === currentPage ? 'current-page' : ''}`}
+                    className={`pagination-button ${currentPage === pageNumber ? 'active' : 'inactive'}`}
                     onClick={() => onPageChange(pageNumber)}
                 >
                     {pageNumber}
-                </button>
+                </div>
             ))}
 
             {currentPage < totalPages && pageNumbers[pageNumbers.length - 1] < totalPages && (
                 <>
-                    {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && <span className='pagination-ellipsis'>...</span>}
-                    <button className='pagination-number' onClick={() => onPageChange(totalPages)}>{totalPages}</button>
+                    {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && <span className="pagination-dots">...</span>}
+                    <div className="pagination-button inactive" onClick={() => onPageChange(totalPages)}>{totalPages}</div>
                 </>
             )}
 
-            <button
-                className='pagination-button'
+            <div
+                className={`pagination-button ${currentPage === totalPages ? 'disabled' : ''}`}
                 onClick={() => onPageChange('next')}
                 disabled={currentPage === totalPages}
             >
                 Next
-            </button>
+            </div>
         </div>
     );
 };
