@@ -3,6 +3,7 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import Search from '../Components/Search';
 import Card from '../Components/Card';
+import Pagination from '../Components/Pagination'; // Import Pagination component
 
 const LandingPage = () => {
     const [data, setData] = useState('');
@@ -10,10 +11,12 @@ const LandingPage = () => {
     const [results, setResults] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchData = async (query, page = 1) => {
         if (!query.trim()) {
-            // Don't make an API call if the query is empty
+            setResults([]);
+            setTotalPages(1);
             return;
         }
 
@@ -28,19 +31,26 @@ const LandingPage = () => {
         }
 
         try {
-            console.log(url);
+            setIsLoading(true);
             const response = await axios.get(url);
             setResults(response.data.items);
             setTotalPages(Math.ceil(response.data.total_count / perPage));
             console.log(response.data.items);
         } catch (error) {
             console.error('Error fetching data from GitHub API', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const debouncedFetchData = useCallback(
-        debounce((query) => {
-            fetchData(query, 1);
+        debounce((query, page) => {
+            if (query.trim()) {
+                fetchData(query, page);
+            } else {
+                setResults([]);
+                setTotalPages(1);
+            }
         }, 500),
         [category]
     );
@@ -49,7 +59,8 @@ const LandingPage = () => {
         const newData = e.target.value;
         setData(newData);
         setCurrentPage(1);
-        debouncedFetchData(newData);
+
+        debouncedFetchData(newData, 1);
     };
 
     const handleCategoryChange = (e) => {
@@ -63,45 +74,63 @@ const LandingPage = () => {
         fetchData(data, 1);
     };
 
-    const handlePageChange = (direction) => {
+    const handlePageChange = (page) => {
         let newPage = currentPage;
-        if (direction === 'prev' && currentPage > 1) {
-            newPage = currentPage - 1;
-        } else if (direction === 'next' && currentPage < totalPages) {
-            newPage = currentPage + 1;
+
+        if (page === 'prev') {
+            newPage = Math.max(currentPage - 1, 1);
+        } else if (page === 'next') {
+            newPage = Math.min(currentPage + 1, totalPages);
+        } else {
+            newPage = page; // Direct page number
         }
-        setCurrentPage(newPage);
-        fetchData(data, newPage);
+
+        if (newPage !== currentPage) {
+            setCurrentPage(newPage);
+            fetchData(data, newPage);
+        }
     };
 
     useEffect(() => {
         if (data) {
             fetchData(data, currentPage);
         }
-    }, [category, currentPage]);
+    }, [category]);
 
     return (
         <div>
-            <h1>Landing Page</h1>
+            <img src="" alt="" />
+            <h1>GitHub Searcher</h1>
+            <h3>Search users or repositories below</h3>
             <Search
                 data={data}
                 category={category}
                 handleInputChange={handleInputChange}
                 handleCategoryChange={handleCategoryChange}
                 handleSubmit={handleSubmit}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                handlePageChange={handlePageChange}
             />
-            <div>
-                {results.length > 0 && (
-                    <ul>
-                        {results.map((result, index) => (
-                            <Card key={index} result={result} category={category} />
-                        ))}
-                    </ul>
-                )}
-            </div>
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <div>
+                    {results.length > 0 ? (
+                        <ul>
+                            {results.map((result, index) => (
+                                <Card key={index} result={result} category={category} />
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No results found</p>
+                    )}
+                </div>
+            )}
+            {totalPages > 1 && (
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+            )}
         </div>
     );
 };

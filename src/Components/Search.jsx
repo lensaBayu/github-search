@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Search = ({ data, category, handleInputChange, handleCategoryChange, handleSubmit, currentPage, totalPages, handlePageChange }) => {
+const Search = ({ data, category, handleInputChange, handleCategoryChange, handleSubmit }) => {
     return (
         <div>
             <select value={category} onChange={handleCategoryChange}>
@@ -11,17 +11,8 @@ const Search = ({ data, category, handleInputChange, handleCategoryChange, handl
                 type="text"
                 value={data}
                 onChange={handleInputChange}
-                placeholder='Type to search repositories or users'
+                placeholder='Type to search users or repositories'
             />
-            <button onClick={handleSubmit}>Search</button>
-
-            {totalPages > 1 && (
-                <div>
-                    <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
-                    <span>Page {currentPage} of {totalPages}</span>
-                    <button onClick={() => handlePageChange('next')} disabled={currentPage === totalPages}>Next</button>
-                </div>
-            )}
         </div>
     );
 }
